@@ -1,19 +1,12 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
 import orderRoutes from "./routes/orderRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 
 dotenv.config();
 
 export const app = express();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const clientDistPath = path.resolve(__dirname, "../../client/dist");
-const clientIndexPath = path.join(clientDistPath, "index.html");
 const allowedOrigins = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
@@ -59,26 +52,17 @@ app.get("/api/health", (_req, res) => {
   res.json({ status: "ok" });
 });
 
+app.get("/", (_req, res) => {
+  res.json({
+    message: "Backend API is running.",
+    health: "/api/health",
+    products: "/api/products",
+    orders: "/api/orders"
+  });
+});
+
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
-
-app.use(express.static(clientDistPath));
-
-app.get("*", (req, res, next) => {
-  if (req.path.startsWith("/api")) {
-    next();
-    return;
-  }
-
-  if (!fs.existsSync(clientIndexPath)) {
-    res.status(503).json({
-      message: "Frontend build not found. Run `npm run build` in the client directory and redeploy `client/dist`."
-    });
-    return;
-  }
-
-  res.sendFile(clientIndexPath);
-});
 
 app.use((err, _req, res, _next) => {
   console.error(err);
