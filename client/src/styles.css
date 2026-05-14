@@ -1,0 +1,315 @@
+:root {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #18222d;
+  background:
+    radial-gradient(circle at top left, rgba(255, 196, 143, 0.55), transparent 30%),
+    linear-gradient(180deg, #fff8f0 0%, #eef4f9 100%);
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.page-shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+.hero {
+  margin-bottom: 24px;
+  padding: 28px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 20px 50px rgba(24, 34, 45, 0.08);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.hero h1 {
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  line-height: 1.05;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #b85c38;
+}
+
+.view-switcher {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.switch-button {
+  border: 1px solid rgba(156, 66, 33, 0.18);
+  border-radius: 999px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #7a3a22;
+}
+
+.switch-button.active {
+  color: #fff;
+  background: linear-gradient(135deg, #d06b3f, #9c4221);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 20px;
+}
+
+.orders-layout {
+  display: grid;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 18px 40px rgba(24, 34, 45, 0.08);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.panel-header h2,
+.details-copy h3,
+.product-heading h3 {
+  margin: 0;
+}
+
+.product-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.product-card {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 14px;
+  align-items: stretch;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  padding: 10px;
+  text-align: left;
+  background: #fff;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover,
+.product-card.active {
+  transform: translateY(-2px);
+  border-color: rgba(184, 92, 56, 0.35);
+  box-shadow: 0 10px 26px rgba(184, 92, 56, 0.12);
+}
+
+.product-card img,
+.details-image {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.product-card img {
+  height: 100px;
+}
+
+.product-content p,
+.product-content small,
+.details-copy p,
+.cart-item p {
+  margin: 0;
+  color: #576575;
+}
+
+.product-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.details-card {
+  display: grid;
+  gap: 16px;
+}
+
+.details-image {
+  height: 260px;
+}
+
+.details-copy {
+  display: grid;
+  gap: 10px;
+}
+
+.details-copy span {
+  color: #576575;
+}
+
+.primary-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  color: #fff;
+  background: linear-gradient(135deg, #d06b3f, #9c4221);
+}
+
+.cart-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.orders-panel,
+.orders-list {
+  display: grid;
+  gap: 16px;
+}
+
+.order-card {
+  padding: 18px;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.order-top,
+.order-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.order-top h3,
+.order-top p,
+.order-address {
+  margin: 0;
+}
+
+.order-summary {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+}
+
+.order-summary span {
+  text-transform: capitalize;
+  color: #576575;
+}
+
+.order-address {
+  margin-top: 12px;
+  color: #576575;
+}
+
+.order-items {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #edf1f5;
+}
+
+.cart-list,
+.checkout-form {
+  display: grid;
+  gap: 12px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.cart-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cart-actions input,
+.checkout-form input,
+.checkout-form textarea {
+  width: 100%;
+  border: 1px solid #d9e0e7;
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: #fff;
+}
+
+.cart-actions input {
+  width: 72px;
+}
+
+.cart-actions button {
+  border: 0;
+  background: transparent;
+  color: #9c4221;
+}
+
+.message {
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  border-radius: 14px;
+}
+
+.message.error {
+  background: #ffe5e5;
+  color: #8f2424;
+}
+
+.message.success {
+  background: #e6f8eb;
+  color: #1d6a36;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    flex-direction: column;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
