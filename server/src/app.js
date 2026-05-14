@@ -14,13 +14,37 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const clientDistPath = path.resolve(__dirname, "../../client/dist");
 const clientIndexPath = path.join(clientDistPath, "index.html");
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  "http://localhost:5000",
+  "http://127.0.0.1:5000",
+  ...(process.env.CLIENT_URLS || process.env.CLIENT_URL || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+];
 
 app.use(
   cors({
     origin(origin, callback) {
-      const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173"].filter(Boolean);
-
       if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      try {
+        const parsedOrigin = new URL(origin);
+
+        if (parsedOrigin.hostname === "localhost" || parsedOrigin.hostname === "127.0.0.1") {
+          callback(null, true);
+          return;
+        }
+      } catch {
+        // Ignore parse failures and continue to the fallback below.
+      }
+
+      if (process.env.NODE_ENV !== "production") {
         callback(null, true);
         return;
       }

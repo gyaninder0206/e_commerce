@@ -1,6 +1,30 @@
 import { useEffect, useState } from "react";
 
-const apiUrl = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:5000/api" : "/api");
+const resolveApiUrl = () => {
+  const configuredApiUrl = import.meta.env.VITE_API_URL?.trim();
+
+  if (!configuredApiUrl) {
+    return import.meta.env.DEV ? "http://localhost:5000/api" : "/api";
+  }
+
+  if (!import.meta.env.DEV) {
+    try {
+      const parsedUrl = new URL(configuredApiUrl, window.location.origin);
+
+      if (["localhost", "127.0.0.1"].includes(parsedUrl.hostname)) {
+        return "/api";
+      }
+    } catch {
+      if (configuredApiUrl.startsWith("http://localhost") || configuredApiUrl.startsWith("http://127.0.0.1")) {
+        return "/api";
+      }
+    }
+  }
+
+  return configuredApiUrl;
+};
+
+const apiUrl = resolveApiUrl();
 
 const initialCustomer = {
   name: "",
