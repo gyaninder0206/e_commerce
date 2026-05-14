@@ -1,6 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import orderRoutes from "./routes/orderRoutes.js";
@@ -12,6 +13,7 @@ export const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const clientDistPath = path.resolve(__dirname, "../../client/dist");
+const clientIndexPath = path.join(clientDistPath, "index.html");
 
 app.use(
   cors({
@@ -44,7 +46,14 @@ app.get("*", (req, res, next) => {
     return;
   }
 
-  res.sendFile(path.join(clientDistPath, "index.html"));
+  if (!fs.existsSync(clientIndexPath)) {
+    res.status(503).json({
+      message: "Frontend build not found. Run `npm run build` in the client directory and redeploy `client/dist`."
+    });
+    return;
+  }
+
+  res.sendFile(clientIndexPath);
 });
 
 app.use((err, _req, res, _next) => {
