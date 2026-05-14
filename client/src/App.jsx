@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 
 const resolveApiUrl = () => {
-  const configuredApiUrl = import.meta.env.VITE_API_URL?.trim();
+  const browserHost = window.location.hostname;
+  const apiHost =
+    browserHost === "localhost" || browserHost === "127.0.0.1" ? "localhost" : browserHost;
 
-  if (!configuredApiUrl) {
-    const apiOrigin = `${window.location.protocol}//${window.location.hostname}:5000`;
-    return `${apiOrigin}/api`;
-  }
-
-  return configuredApiUrl;
+  return `${window.location.protocol}//${apiHost}:5000/api`;
 };
 
 const apiUrl = resolveApiUrl();
