@@ -33,6 +33,11 @@ app.use(
           callback(null, true);
           return;
         }
+
+        if (parsedOrigin.port === "5173" || parsedOrigin.port === "5000") {
+          callback(null, true);
+          return;
+        }
       } catch {
         // Ignore parse failures and continue to the fallback below.
       }
